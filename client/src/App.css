@@ -1,0 +1,120 @@
+/* Custom properties for easy color management */
+:root {
+  --primary-color: #646cff;
+  --react-color: #61dafbaa;
+  --bg-dark: #1a1a2e; /* Deep rich blue/purple */
+  --text-light: #f0f0f0;
+  --card-bg: rgba(30, 30, 50, 0.7); /* Semi-transparent dark card background */
+}
+
+/* Global body styling (assuming the #root is inside a basic <body>) */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #0d0d1a; /* Even darker background for the rest of the page */
+    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--text-light);
+}
+
+/* --- ROOT CONTAINER --- */
+#root {
+  /* Layout */
+  max-width: 1400px; /* A bit wider */
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* Appearance */
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: var(--bg-dark); 
+  border-radius: 16px; /* Soft, modern corners */
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6); /* Subtle shadow around the whole app */
+}
+
+/* --- LOGO STYLING --- */
+.logo {
+  height: 8em; /* Bigger logos */
+  margin: 2rem 2rem; /* Spacing between logos */
+  
+  /* Transitions and Shadows */
+  will-change: transform, box-shadow;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease-out; /* Smoother, more complex transition */
+  
+  /* Initial depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+  border-radius: 50%; /* If your logo is a square image, this makes it a circle */
+}
+
+/* Deeper, more vibrant hover effect */
+.logo:hover {
+  transform: translateY(-8px) scale(1.08); /* Significant lift and scale */
+  /* Multi-layered glow/shadow */
+  box-shadow: 
+    0 0 40px rgba(100, 108, 255, 0.8), /* Vibrant glow */
+    0 10px 20px rgba(0, 0, 0, 0.7); /* Subtle dark base */
+}
+
+/* Specific React hover color */
+.logo.react:hover {
+  box-shadow: 
+    0 0 40px rgba(97, 218, 251, 0.8), /* Bright blue/cyan glow */
+    0 10px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* --- LOGO SPIN ANIMATION --- */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The logo doesn't lift and spin at the same time for better visual appeal */
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+  /* Remove hover transition for the spinning logo to prevent stuttering */
+  a:nth-of-type(2) .logo:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* --- CARD AND TYPOGRAPHY --- */
+.card {
+  /* Appearance */
+  padding: 3.5em 4em; /* More generous padding */
+  margin-top: 3rem;
+  background-color: var(--card-bg); 
+  border-radius: 16px;
+  /* Modern soft shadow and subtle inner glow (neumorphic-ish) */
+  box-shadow: 
+    0 15px 45px rgba(0, 0, 0, 0.6), /* Deeper bottom shadow */
+    inset 0 0 20px rgba(255, 255, 255, 0.03); /* Slight inner glow */
+  backdrop-filter: blur(8px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+
+.read-the-docs {
+  /* Better contrast and softer color */
+  color: #b0b0c0; /* Lighter grey for better readability on dark background */
+  font-size: 0.95em;
+  font-style: italic;
+  margin-top: 2rem;
+  opacity: 0.7; 
+  transition: opacity 0.3s, color 0.3s;
+}
+
+.read-the-docs:hover {
+  opacity: 1;
+  color: var(--text-light); /* White on hover */
+}
