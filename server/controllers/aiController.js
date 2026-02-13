@@ -9,11 +9,9 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const pdf = require("pdf-parse");
 
-/* ================= GEMINI REST CONFIG ================= */
+/* ================= OPENROUTER CONFIG ================= */
 
-// ✅ THIS WORKS WITH FREE API KEY
-const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
+const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 /* ================= ARTICLE GENERATION ================= */
 
@@ -32,24 +30,25 @@ export const generateArticle = async (req, res) => {
     }
 
     const response = await axios.post(
-      `${GEMINI_URL}?key=${process.env.GEMINI_API_KEY}`,
+      OPENROUTER_URL,
       {
-        contents: [
+        model: "mistralai/mistral-7b-instruct",
+        messages: [
           {
-            parts: [
-              {
-                text: `${prompt}\n\nWrite approximately ${length} words.`,
-              },
-            ],
+            role: "user",
+            content: `${prompt}. Write a detailed article of about ${length} words.`,
           },
         ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+        },
       }
     );
 
-    const content =
-      response.data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!content) throw new Error("No content returned from Gemini");
+    const content = response.data.choices[0].message.content;
 
     await sql`
       INSERT INTO creations (user_id, prompt, content, type)
@@ -64,8 +63,8 @@ export const generateArticle = async (req, res) => {
 
     res.json({ success: true, content });
   } catch (error) {
-    console.error("ARTICLE ERROR:", error.message);
-    res.json({ success: false, message: error.message });
+    console.error("ARTICLE ERROR:", error.response?.data || error.message);
+    res.json({ success: false, message: "AI generation failed" });
   }
 };
 
@@ -75,47 +74,41 @@ export const generateBlogTitle = async (req, res) => {
   try {
     const { userId } = req.auth();
     const { prompt } = req.body;
-    const plan = req.plan;
-    const free_usage = req.free_usage;
-
-    if (plan !== "premium" && free_usage >= 10) {
-      return res.json({
-        success: false,
-        message: "Free limit reached. Upgrade to continue.",
-      });
-    }
 
     const response = await axios.post(
-      `${GEMINI_URL}?key=${process.env.GEMINI_API_KEY}`,
+      OPENROUTER_URL,
       {
-        contents: [{ parts: [{ text: prompt }] }],
+        model: "mistralai/mistral-7b-instruct",
+        messages: [
+          {
+            role: "user",
+            content: `Generate 5 catchy blog titles for: ${prompt}`,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+        },
       }
     );
 
-    const content =
-      response.data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!content) throw new Error("No content returned from Gemini");
+    const content = response.data.choices[0].message.content;
 
     await sql`
       INSERT INTO creations (user_id, prompt, content, type)
       VALUES (${userId}, ${prompt}, ${content}, 'blog-title')
     `;
 
-    if (plan !== "premium") {
-      await clerkClient.users.updateUserMetadata(userId, {
-        privateMetadata: { free_usage: free_usage + 1 },
-      });
-    }
-
     res.json({ success: true, content });
   } catch (error) {
     console.error("BLOG TITLE ERROR:", error.message);
-    res.json({ success: false, message: error.message });
+    res.json({ success: false, message: "Failed to generate titles" });
   }
 };
 
-/* ================= IMAGE GENERATION (CLIPDROP) ================= */
+/* ================= IMAGE GENERATION (UNCHANGED) ================= */
 
 export const generateImage = async (req, res) => {
   try {
@@ -206,22 +199,25 @@ export const resumeReview = async (req, res) => {
     fs.unlinkSync(resume.path);
 
     const response = await axios.post(
-      `${GEMINI_URL}?key=${process.env.GEMINI_API_KEY}`,
+      OPENROUTER_URL,
       {
-        contents: [
+        model: "mistralai/mistral-7b-instruct",
+        messages: [
           {
-            parts: [
-              {
-                text: `Review this resume and give strengths, weaknesses, and improvements:\n${pdfData.text}`,
-              },
-            ],
+            role: "user",
+            content: `Review this resume and give strengths, weaknesses, and improvements:\n${pdfData.text}`,
           },
         ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+        },
       }
     );
 
-    const content =
-      response.data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const content = response.data.choices[0].message.content;
 
     res.json({ success: true, content });
   } catch (error) {
