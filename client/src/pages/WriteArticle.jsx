@@ -5,9 +5,9 @@ import { useAuth } from "@clerk/clerk-react";
 import toast from "react-hot-toast";
 import Markdown from "react-markdown";
 
-/* ✅ IMPORTANT — DIRECT BACKEND URL */
+
 const api = axios.create({
-  baseURL: "http://localhost:3000", // must match your Express server
+  baseURL: "http://localhost:3000", 
 });
 
 const WriteArticle = () => {
