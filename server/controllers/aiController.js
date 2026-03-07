@@ -33,7 +33,7 @@ export const generateArticle = async (req, res) => {
     }
 
     const response = await axios.post(
-      OPENROUTER_URL,
+      GROQ_URL,
       {
         model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
@@ -45,7 +45,7 @@ export const generateArticle = async (req, res) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
       }
@@ -82,7 +82,7 @@ export const generateBlogTitle = async (req, res) => {
     const { prompt } = req.body;
 
     const response = await axios.post(
-      OPENROUTER_URL,
+      GROQ_URL,
       {
         model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
@@ -94,7 +94,7 @@ export const generateBlogTitle = async (req, res) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
       }
@@ -208,7 +208,7 @@ export const resumeReview = async (req, res) => {
     fs.unlinkSync(resume.path);
 
     const response = await axios.post(
-      OPENROUTER_URL,
+      GROQ_URL,
       {
         model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
@@ -220,7 +220,7 @@ export const resumeReview = async (req, res) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
       }
