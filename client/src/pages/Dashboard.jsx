@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Gem, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Gem, Sparkles, SquarePen, Hash, Image, Eraser, Scissors, FileText } from "lucide-react";
 import { Protect, useAuth } from "@clerk/clerk-react";
 import CreationItem from "../components/CreationItem";
 import axios from "axios";
@@ -7,10 +8,62 @@ import toast from "react-hot-toast";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
+const quickActions = [
+  {
+    title: "Article Writer",
+    desc: "Generate full articles with AI.",
+    icon: SquarePen,
+    path: "/ai/write-article",
+    color: "from-violet-500/20 to-violet-500/5",
+    accent: "text-violet-400",
+  },
+  {
+    title: "Blog Titles",
+    desc: "Create catchy titles for posts.",
+    icon: Hash,
+    path: "/ai/blog-titles",
+    color: "from-blue-500/20 to-blue-500/5",
+    accent: "text-blue-400",
+  },
+  {
+    title: "Image Generation",
+    desc: "Turn text into high-quality images.",
+    icon: Image,
+    path: "/ai/generate-images",
+    color: "from-emerald-500/20 to-emerald-500/5",
+    accent: "text-emerald-400",
+  },
+  {
+    title: "Remove Background",
+    desc: "Isolate subjects from any image.",
+    icon: Eraser,
+    path: "/ai/remove-background",
+    color: "from-orange-500/20 to-orange-500/5",
+    accent: "text-orange-400",
+  },
+  {
+    title: "Remove Object",
+    desc: "Clean up unwanted image elements.",
+    icon: Scissors,
+    path: "/ai/remove-object",
+    color: "from-pink-500/20 to-pink-500/5",
+    accent: "text-pink-400",
+  },
+  {
+    title: "Resume Review",
+    desc: "Get AI feedback on your resume.",
+    icon: FileText,
+    path: "/ai/review-resume",
+    color: "from-cyan-500/20 to-cyan-500/5",
+    accent: "text-cyan-400",
+  },
+];
+
 const Dashboard = () => {
   const [creations, setCreations] = useState([]);
   const [loading, setLoading] = useState(true);
   const { getToken } = useAuth();
+  const navigate = useNavigate();
 
   const getDashboardData = async () => {
     try {
@@ -67,6 +120,28 @@ const Dashboard = () => {
           <div className="w-11 h-11 rounded-lg bg-[#5b21b6]/16 flex justify-center items-center border border-[#5b21b6]/28">
             <Gem className="w-5 text-[#c4b5fd]" />
           </div>
+        </div>
+      </div>
+
+      {/* Quick Actions Section */}
+      <div className="mb-12">
+        <h3 className="text-lg font-semibold text-white mb-6">Quick Actions</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {quickActions.map((action, idx) => (
+            <div
+              key={idx}
+              onClick={() => navigate(action.path)}
+              className={`group cursor-pointer p-6 rounded-2xl bg-gradient-to-br ${action.color} border border-white/[0.06] hover:border-white/15 hover:scale-[1.02] transition-all duration-300`}
+            >
+              <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center mb-4 ${action.accent}`}>
+                <action.icon className="w-5 h-5" />
+              </div>
+              <h4 className="text-white font-bold mb-1">{action.title}</h4>
+              <p className="text-zinc-500 text-xs leading-relaxed">
+                {action.desc}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 

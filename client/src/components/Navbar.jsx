@@ -11,12 +11,13 @@ const Navbar = () => {
 
   return (
     <div className="fixed z-5 w-full backdrop-blur-2xl flex justify-between items-center py-3 px-4 sm:px-20 xl:px-32">
-      <img
-        src={assets.logo}
-        alt="logo"
-        className="w-32 sm:w-44 cursor-pointer"
+      <div 
+        className="text-2xl cursor-pointer flex items-center gap-1 select-none" 
         onClick={() => navigate("/")}
-      />
+      >
+        <span className="text-white font-bold">Craft</span>
+        <span className="text-[#5b21b6] font-bold">Mind AI</span>
+      </div>
 
       {user ? (
         <UserButton />
