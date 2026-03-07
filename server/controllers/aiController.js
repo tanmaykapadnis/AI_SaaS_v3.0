@@ -35,7 +35,7 @@ export const generateArticle = async (req, res) => {
     const response = await axios.post(
       GROQ_URL,
       {
-        model: "meta-llama/llama-3.1-8b-instruct:free",
+        model: "llama-3.1-8b-instant",
         messages: [
           {
             role: "user",
@@ -84,7 +84,7 @@ export const generateBlogTitle = async (req, res) => {
     const response = await axios.post(
       GROQ_URL,
       {
-        model: "meta-llama/llama-3.1-8b-instruct:free",
+        model: "llama-3.1-8b-instant",
         messages: [
           {
             role: "user",
@@ -210,7 +210,7 @@ export const resumeReview = async (req, res) => {
     const response = await axios.post(
       GROQ_URL,
       {
-        model: "meta-llama/llama-3.1-8b-instruct:free",
+        model: "llama-3.1-8b-instant",
         messages: [
           {
             role: "user",
