@@ -12,8 +12,8 @@ html, body, #root {
 }
 
 @theme {
-  --color-primary: #7c3aed;
-  --color-accent: #7c3aed;
+  --color-primary: #5b21b6;
+  --color-accent: #5b21b6;
 }
 
 /* Transitions for interactive elements */
@@ -62,8 +62,8 @@ button, a, [role="button"], .transition-default {
 .glow-text {
   color: #ffffff;
   text-shadow:
-    0 0 10px rgba(124, 58, 237, 0.4),
-    0 0 20px rgba(124, 58, 237, 0.3),
-    0 0 40px rgba(124, 58, 237, 0.2);
+    0 0 10px rgba(91, 33, 182, 0.35),
+    0 0 20px rgba(91, 33, 182, 0.25),
+    0 0 40px rgba(91, 33, 182, 0.18);
   letter-spacing: 0.5px;
 }

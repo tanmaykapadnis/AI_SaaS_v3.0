@@ -17,7 +17,7 @@ const CreationItem = ({ item }) => {
       <div className="flex justify-between items-start gap-4">
         <div className="min-w-0 flex-1">
           <h2 className="text-sm font-medium text-white truncate">{item.prompt}</h2>
-          <span className="inline-flex items-center mt-2 px-2.5 py-1 text-xs font-medium rounded-md bg-violet-500/15 text-violet-400 border border-violet-500/20">
+          <span className="inline-flex items-center mt-2 px-2.5 py-1 text-xs font-medium rounded-md bg-[#5b21b6]/14 text-[#ddd6fe] border border-[#5b21b6]/20">
             {typeLabel} · {new Date(item.created_at).toLocaleDateString()}
           </span>
         </div>

@@ -44,89 +44,130 @@ const GenerateImages = () => {
   };
 
   return (
-    <div className="h-full overflow-y-scroll p-6 flex items-start flex-wrap gap-4 text-gray-200 bg-transparent">
-      {/* Left Column */}
-      <form
-        onSubmit={onSubmitHandler}
-        className="w-full max-w-lg p-4 bg-[#1a1a1a] rounded-lg border border-gray-700 shadow-md"
-      >
-        <div className="flex items-center gap-3">
-          <Sparkles className="w-6 text-[#00ad25]" />
-          <h1 className="text-xl font-semibold text-white">AI Image Generator</h1>
-        </div>
-
-        <p className="mt-6 text-sm font-semibold text-gray-300">Describe Your Image</p>
-        <textarea
-          onChange={(e) => setInput(e.target.value)}
-          value={input}
-          rows={4}
-          className="w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-700 bg-[#0f0f0f] text-gray-200 placeholder-gray-500"
-          placeholder="Describe what you want to see..."
-          required
-        />
-
-        <p className="mt-4 text-sm font-medium text-gray-300">Style</p>
-        <div className="mt-3 flex gap-3 flex-wrap">
-          {imageStyle.map((item) => (
-            <span
-              onClick={() => setSelectedStyle(item)}
-              className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${
-                selectedStyle === item
-                  ? "bg-green-900 text-green-400 border-green-600"
-                  : "text-gray-400 border-gray-600 hover:text-green-300 hover:border-green-400"
-              }`}
-              key={item}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-
-        <div className="my-6 flex items-center gap-2">
-          <label className="relative cursor-pointer">
-            <input
-              type="checkbox"
-              onChange={(e) => setPublish(e.target.checked)}
-              checked={publish}
-              className="sr-only peer"
-            />
-            <div className="w-9 h-5 bg-slate-600 rounded-full peer-checked:bg-green-500 transition"></div>
-            <span className="absolute left-1 top-1 w-3 h-3 bg-[#111] rounded-full transition peer-checked:translate-x-4"></span>
-          </label>
-          <p className="text-sm text-gray-300">Make this image Public</p>
-        </div>
-
-        <button
-          disabled={loading}
-          className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#00ad25] to-[#04ff50] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer hover:opacity-90"
-        >
-          {loading ? (
-            <span className="w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin"></span>
-          ) : (
-            <Image className="w-5" />
-          )}
-          Generate Image
-        </button>
-      </form>
-
-      {/* Right Column */}
-      <div className="w-full max-w-lg p-4 bg-[#1a1a1a] rounded-lg flex flex-col border border-gray-700 min-h-96 shadow-md">
-        <div className="flex items-center gap-3">
-          <Image className="w-5 h-5 text-[#00ad25]" />
-          <h1 className="text-xl font-semibold text-white">Generated Image</h1>
-        </div>
-        {!content ? (
-          <div className="flex-1 flex justify-center items-center">
-            <div className="text-sm flex flex-col items-center gap-5 text-gray-500">
-              <Image className="w-9 h-9" />
-              <p>Enter a topic and click “Generate Image” to get started</p>
+    <div className="h-full overflow-y-auto bg-[#09090b] text-zinc-300">
+      <div className="mx-auto w-full max-w-[900px] px-6 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* LEFT CARD */}
+          <form
+            onSubmit={onSubmitHandler}
+            className="relative rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 card-hover overflow-hidden
+            before:content-[''] before:absolute before:inset-x-0 before:top-0 before:h-px
+            before:bg-gradient-to-r before:from-[#5b21b6]/70 before:via-[#5b21b6]/25 before:to-transparent"
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <Sparkles className="w-5 h-5 text-[#c4b5fd]" />
+              <h1 className="text-xl font-semibold text-white tracking-tight">
+                Image generation
+              </h1>
             </div>
+
+            <div className="space-y-8">
+              <div>
+                <p className="text-sm font-medium text-gray-400">Prompt</p>
+                <textarea
+                  onChange={(e) => setInput(e.target.value)}
+                  value={input}
+                  rows={4}
+                  className="w-full mt-3 rounded-xl bg-white/[0.03] border border-white/[0.10] px-4 py-4 text-sm text-white placeholder:text-zinc-600
+                  focus:outline-none focus:ring-2 focus:ring-[#5b21b6]/35 focus:border-[#5b21b6]/45"
+                  placeholder="Describe what you want to see..."
+                  required
+                />
+              </div>
+
+              <div>
+                <p className="text-sm font-medium text-gray-400">Style</p>
+                <div className="mt-3 flex gap-2 flex-wrap">
+                  {imageStyle.map((item) => {
+                    const selected = selectedStyle === item;
+                    return (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedStyle(item)}
+                        className={`text-xs px-4 py-2 border rounded-full transition-all duration-150 ${
+                          selected
+                            ? "bg-[#5b21b6]/20 text-[#ddd6fe] border-[#5b21b6]/40"
+                            : "bg-transparent text-zinc-400 border-white/10 hover:text-zinc-200 hover:border-white/20 hover:bg-white/[0.03]"
+                        }`}
+                        key={item}
+                      >
+                        {item}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-4">
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-zinc-200">
+                    Publish to community
+                  </p>
+                  <p className="text-xs text-zinc-500">
+                    Make this image visible in the public feed.
+                  </p>
+                </div>
+                <label className="relative cursor-pointer">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => setPublish(e.target.checked)}
+                    checked={publish}
+                    className="sr-only peer"
+                  />
+                  <div className="w-10 h-6 bg-white/10 rounded-full peer-checked:bg-[#5b21b6] transition-all duration-150 border border-white/10"></div>
+                  <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-150 peer-checked:translate-x-4"></span>
+                </label>
+              </div>
+
+              <button
+                disabled={loading}
+                className="w-full mt-2 py-3.5 flex items-center justify-center gap-2 rounded-xl text-sm font-semibold
+                bg-[#5b21b6] hover:bg-[#4c1d95] disabled:opacity-60 disabled:hover:bg-[#5b21b6] transition-all duration-150"
+              >
+                {loading ? (
+                  <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-transparent animate-spin" />
+                ) : (
+                  <Image className="w-4 h-4" />
+                )}
+                {loading ? "Generating..." : "Generate image"}
+              </button>
+            </div>
+          </form>
+
+          {/* RIGHT CARD */}
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 card-hover flex flex-col min-h-[520px]">
+            <div className="flex items-center gap-3 mb-4">
+              <Image className="w-5 h-5 text-[#c4b5fd]" />
+              <h2 className="text-xl font-semibold text-white tracking-tight">
+                Output
+              </h2>
+            </div>
+
+            {!content ? (
+              <div className="flex-1 flex items-center justify-center">
+                <div className="text-center max-w-sm">
+                  <div className="mx-auto w-12 h-12 rounded-2xl bg-[#5b21b6]/12 border border-[#5b21b6]/20 flex items-center justify-center">
+                    <Image className="w-6 h-6 text-[#c4b5fd]" />
+                  </div>
+                  <p className="mt-4 text-sm font-medium text-zinc-200">
+                    Generate a clean image preview.
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-500">
+                    Add a prompt, pick a style, and click generate.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-2 flex-1">
+                <img
+                  src={content}
+                  alt="Generated"
+                  className="w-full h-full max-h-[420px] object-contain rounded-xl border border-white/[0.08] bg-black/20"
+                />
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="mt-3 h-full">
-            <img src={content} alt="" className="w-full h-full rounded-lg border border-gray-700" />
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

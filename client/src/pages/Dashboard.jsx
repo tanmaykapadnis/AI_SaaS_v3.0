@@ -47,8 +47,8 @@ const Dashboard = () => {
               {creations.length}
             </h2>
           </div>
-          <div className="w-11 h-11 rounded-lg bg-violet-500/20 flex justify-center items-center border border-violet-500/30">
-            <Sparkles className="w-5 text-violet-400" />
+          <div className="w-11 h-11 rounded-lg bg-[#5b21b6]/16 flex justify-center items-center border border-[#5b21b6]/28">
+            <Sparkles className="w-5 text-[#c4b5fd]" />
           </div>
         </div>
 
@@ -64,8 +64,8 @@ const Dashboard = () => {
               </Protect>
             </h2>
           </div>
-          <div className="w-11 h-11 rounded-lg bg-violet-500/20 flex justify-center items-center border border-violet-500/30">
-            <Gem className="w-5 text-violet-400" />
+          <div className="w-11 h-11 rounded-lg bg-[#5b21b6]/16 flex justify-center items-center border border-[#5b21b6]/28">
+            <Gem className="w-5 text-[#c4b5fd]" />
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ const Dashboard = () => {
       {/* Loader */}
       {loading ? (
         <div className="flex justify-center items-center min-h-[320px]">
-          <span className="w-10 h-10 rounded-full border-2 border-violet-500/30 border-t-violet-500 animate-spin" />
+          <span className="w-10 h-10 rounded-full border-2 border-[#5b21b6]/30 border-t-[#5b21b6] animate-spin" />
         </div>
       ) : (
         <div className="space-y-4">

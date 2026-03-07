@@ -43,69 +43,103 @@ const RemoveObject = () => {
   };
 
   return (
-    <div className="h-full overflow-y-scroll p-6 flex items-start flex-wrap gap-4 text-gray-200 bg-transparent">
-      {/* Left Column */}
-      <form
-        onSubmit={onSubmitHandler}
-        className="w-full max-w-lg p-4 bg-[#1a1a1a] rounded-lg border border-gray-700 shadow-md"
-      >
-        <div className="flex items-center gap-3">
-          <Sparkles className="w-6 text-[#4a7aff]" />
-          <h1 className="text-xl font-semibold text-white">Object Removal</h1>
-        </div>
-
-        <p className="mt-6 text-sm font-semibold text-gray-300">Upload Image</p>
-        <input
-          onChange={(e) => setInput(e.target.files[0])}
-          type="file"
-          accept="image/*"
-          className="w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-700 bg-[#0f0f0f] text-gray-200 placeholder-gray-500"
-          required
-        />
-
-        <p className="mt-6 text-sm font-semibold text-gray-300">
-          Describe object name to remove
-        </p>
-
-        <textarea
-          onChange={(e) => setObject(e.target.value)}
-          value={object}
-          rows={4}
-          className="w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-700 bg-[#0f0f0f] text-gray-200 placeholder-gray-500"
-          placeholder="e.g., watch or spoon (only one object name)"
-          required
-        />
-
-        <button
-          disabled={loading}
-          className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#4a7aff] to-[#8e37eb] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer hover:opacity-90"
-        >
-          {loading ? (
-            <span className="w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin"></span>
-          ) : (
-            <Scissors className="w-5" />
-          )}
-          Remove Object
-        </button>
-      </form>
-
-      {/* Right Column */}
-      <div className="w-full max-w-lg p-4 bg-[#1a1a1a] rounded-lg flex flex-col border border-gray-700 min-h-96 shadow-md">
-        <div className="flex items-center gap-3">
-          <Scissors className="w-5 h-5 text-[#4a7aff]" />
-          <h1 className="text-xl font-semibold text-white">Processed Image</h1>
-        </div>
-
-        {!content ? (
-          <div className="flex-1 flex justify-center items-center">
-            <div className="text-sm flex flex-col items-center gap-5 text-gray-500">
-              <Scissors className="w-9 h-9" />
-              <p>Upload an image and click “Remove Object” to get started</p>
+    <div className="h-full overflow-y-auto bg-[#09090b] text-zinc-300">
+      <div className="mx-auto w-full max-w-[900px] px-6 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* LEFT CARD */}
+          <form
+            onSubmit={onSubmitHandler}
+            className="relative rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 card-hover overflow-hidden
+            before:content-[''] before:absolute before:inset-x-0 before:top-0 before:h-px
+            before:bg-gradient-to-r before:from-[#5b21b6]/70 before:via-[#5b21b6]/25 before:to-transparent"
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <Sparkles className="w-5 h-5 text-[#c4b5fd]" />
+              <h1 className="text-xl font-semibold text-white tracking-tight">
+                Object removal
+              </h1>
             </div>
+
+            <div className="space-y-8">
+              <div>
+                <p className="text-sm font-medium text-gray-400">Upload image</p>
+                <input
+                  onChange={(e) => setInput(e.target.files[0])}
+                  type="file"
+                  accept="image/*"
+                  className="w-full mt-3 rounded-xl bg-white/[0.03] border border-white/[0.10] px-4 py-4 text-sm text-zinc-200 file:mr-4 file:rounded-lg file:border-0 file:bg-[#5b21b6] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#4c1d95]
+                  focus:outline-none focus:ring-2 focus:ring-[#5b21b6]/35 focus:border-[#5b21b6]/45"
+                  required
+                />
+              </div>
+
+              <div>
+                <p className="text-sm font-medium text-gray-400">
+                  Object to remove
+                </p>
+                <textarea
+                  onChange={(e) => setObject(e.target.value)}
+                  value={object}
+                  rows={4}
+                  className="w-full mt-3 rounded-xl bg-white/[0.03] border border-white/[0.10] px-4 py-4 text-sm text-white placeholder:text-zinc-600
+                  focus:outline-none focus:ring-2 focus:ring-[#5b21b6]/35 focus:border-[#5b21b6]/45"
+                  placeholder="e.g., watch (single object name)"
+                  required
+                />
+                <p className="text-xs text-zinc-500 mt-2">
+                  Tip: use a single word for best results.
+                </p>
+              </div>
+
+              <button
+                disabled={loading}
+                className="w-full mt-2 py-3.5 flex items-center justify-center gap-2 rounded-xl text-sm font-semibold
+                bg-[#5b21b6] hover:bg-[#4c1d95] disabled:opacity-60 disabled:hover:bg-[#5b21b6] transition-all duration-150"
+              >
+                {loading ? (
+                  <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-transparent animate-spin" />
+                ) : (
+                  <Scissors className="w-4 h-4" />
+                )}
+                {loading ? "Processing..." : "Remove object"}
+              </button>
+            </div>
+          </form>
+
+          {/* RIGHT CARD */}
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 card-hover flex flex-col min-h-[520px]">
+            <div className="flex items-center gap-3 mb-4">
+              <Scissors className="w-5 h-5 text-[#c4b5fd]" />
+              <h2 className="text-xl font-semibold text-white tracking-tight">
+                Output
+              </h2>
+            </div>
+
+            {!content ? (
+              <div className="flex-1 flex items-center justify-center">
+                <div className="text-center max-w-sm">
+                  <div className="mx-auto w-12 h-12 rounded-2xl bg-[#5b21b6]/12 border border-[#5b21b6]/20 flex items-center justify-center">
+                    <Scissors className="w-6 h-6 text-[#c4b5fd]" />
+                  </div>
+                  <p className="mt-4 text-sm font-medium text-zinc-200">
+                    Upload an image to begin.
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-500">
+                    We’ll remove the specified object and return the edited image.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-2 flex-1">
+                <img
+                  src={content}
+                  alt="Processed"
+                  className="w-full h-full max-h-[420px] object-contain rounded-xl border border-white/[0.08] bg-black/20"
+                />
+              </div>
+            )}
           </div>
-        ) : (
-          <img src={content} alt="Processed" className="mt-3 w-full h-full rounded-lg border border-gray-700" />
-        )}
+        </div>
       </div>
     </div>
   );
