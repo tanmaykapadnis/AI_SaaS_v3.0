@@ -9,9 +9,9 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const pdf = require("pdf-parse");
 
-/* ================= OPENROUTER CONFIG ================= */
+/* ================= GROQ CONFIG ================= */
 
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
+const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 /* ================= ARTICLE GENERATION ================= */
 
