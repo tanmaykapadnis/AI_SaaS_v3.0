@@ -17,7 +17,10 @@ const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 export const generateArticle = async (req, res) => {
   try {
-    const { userId } = req.auth();
+    const userId = req.userId;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
     const { prompt, length } = req.body;
     const plan = req.plan;
     const free_usage = req.free_usage;
@@ -32,7 +35,7 @@ export const generateArticle = async (req, res) => {
     const response = await axios.post(
       OPENROUTER_URL,
       {
-        model: "mistralai/mistral-7b-instruct",
+        model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
           {
             role: "user",
@@ -72,13 +75,16 @@ export const generateArticle = async (req, res) => {
 
 export const generateBlogTitle = async (req, res) => {
   try {
-    const { userId } = req.auth();
+    const userId = req.userId;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
     const { prompt } = req.body;
 
     const response = await axios.post(
       OPENROUTER_URL,
       {
-        model: "mistralai/mistral-7b-instruct",
+        model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
           {
             role: "user",
@@ -112,7 +118,10 @@ export const generateBlogTitle = async (req, res) => {
 
 export const generateImage = async (req, res) => {
   try {
-    const { userId } = req.auth();
+    const userId = req.userId;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
     const { prompt, publish } = req.body;
     const plan = req.plan;
 
@@ -201,7 +210,7 @@ export const resumeReview = async (req, res) => {
     const response = await axios.post(
       OPENROUTER_URL,
       {
-        model: "mistralai/mistral-7b-instruct",
+        model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
           {
             role: "user",
