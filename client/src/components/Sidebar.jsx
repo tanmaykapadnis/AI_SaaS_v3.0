@@ -17,41 +17,48 @@ const Sidebar = ({ sidebar, setSidebar }) => {
   const { signOut } = useClerk();
 
   return (
-    <div className={`w-64 glass border-r border-white/5 flex flex-col justify-between
-    max-sm:absolute top-14 bottom-0 z-20
-    ${sidebar ? "translate-x-0" : "max-sm:-translate-x-full"}
-    transition-all duration-300`}>
+    <div
+      className={`w-64 flex-shrink-0 bg-[#09090b] border-r border-white/[0.06] flex flex-col justify-between
+      max-sm:absolute top-14 bottom-0 z-20 max-sm:bg-[#09090b]/95 max-sm:backdrop-blur-sm
+      ${sidebar ? "max-sm:translate-x-0" : "max-sm:-translate-x-full"}
+      transition-transform duration-200 ease-out`}
+    >
+      <div className="p-5">
+        <img
+          src={user.imageUrl}
+          alt="Profile"
+          className="w-12 h-12 rounded-full mx-auto object-cover ring-1 ring-white/[0.08]"
+        />
+        <h1 className="mt-3 text-center text-sm font-medium text-zinc-300 truncate px-2">
+          {user.fullName}
+        </h1>
 
-      <div className="p-6">
-        <img src={user.imageUrl} className="w-14 rounded-full mx-auto" />
-        <h1 className="mt-3 text-center font-medium">{user.fullName}</h1>
-
-        <div className="mt-8 space-y-2">
+        <div className="mt-6 space-y-0.5">
           {navItems.map(({ to, label, Icon }) => (
             <NavLink
               key={to}
               to={to}
               onClick={() => setSidebar(false)}
               className={({ isActive }) =>
-                `px-4 py-3 flex items-center gap-3 rounded-xl transition-all
+                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150
                 ${isActive
-                  ? "bg-white/5 glow-border text-white"
-                  : "text-gray-400 hover:bg-white/5 hover:text-white"}`
+                  ? "bg-violet-500/15 text-violet-400 border-l-2 border-violet-500 -ml-[2px] pl-[14px]"
+                  : "text-zinc-500 hover:bg-white/[0.04] hover:text-zinc-300 border-l-2 border-transparent"}`
               }
             >
-              <Icon className="w-4 h-4" />
+              <Icon className="w-4 h-4 flex-shrink-0" />
               {label}
             </NavLink>
           ))}
         </div>
       </div>
 
-      <div className="p-6 border-t border-white/5">
+      <div className="p-5 border-t border-white/[0.06]">
         <button
           onClick={signOut}
-          className="flex items-center gap-2 text-gray-400 hover:text-white transition"
+          className="flex items-center gap-2.5 text-sm text-zinc-500 hover:text-zinc-300 px-3 py-2 rounded-lg hover:bg-white/[0.04] transition-all duration-150"
         >
-          <LogOut className="w-4" /> Logout
+          <LogOut className="w-4 h-4" /> Logout
         </button>
       </div>
     </div>

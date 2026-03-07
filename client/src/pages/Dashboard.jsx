@@ -34,55 +34,64 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="h-full overflow-y-scroll p-6 text-gray-200 bg-transparent">
+    <div className="h-full overflow-y-auto p-8 text-zinc-300 bg-[#09090b]">
       {/* Top Stats Section */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 mb-10">
         {/* Total Creations Card */}
-        <div className="flex justify-between items-center w-72 p-4 px-6 bg-[#1a1a1a] rounded-xl border border-gray-700 shadow-md">
+        <div className="flex justify-between items-center w-72 p-5 rounded-xl bg-[#09090b] border border-white/[0.08] card-hover">
           <div>
-            <p className="text-sm font-semibold text-gray-400">Total Creations</p>
-            <h2 className="text-2xl font-semibold text-white mt-1">
+            <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
+              Total Creations
+            </p>
+            <h2 className="text-2xl font-semibold text-white mt-1.5">
               {creations.length}
             </h2>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3588F2] to-[#0BB0D7] flex justify-center items-center shadow-md">
-            <Sparkles className="w-5 text-white" />
+          <div className="w-11 h-11 rounded-lg bg-violet-500/20 flex justify-center items-center border border-violet-500/30">
+            <Sparkles className="w-5 text-violet-400" />
           </div>
         </div>
 
         {/* Active Plan Card */}
-        <div className="flex justify-between items-center w-72 p-4 px-6 bg-[#1a1a1a] rounded-xl border border-gray-700 shadow-md">
+        <div className="flex justify-between items-center w-72 p-5 rounded-xl bg-[#09090b] border border-white/[0.08] card-hover">
           <div>
-            <p className="text-sm font-semibold text-gray-400">Active Plan</p>
-            <h2 className="text-2xl font-semibold text-white mt-1">
+            <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
+              Active Plan
+            </p>
+            <h2 className="text-2xl font-semibold text-white mt-1.5">
               <Protect plan={"premium"} fallback="Free">
                 Premium
               </Protect>
             </h2>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#FF61C5] to-[#9E53EE] flex justify-center items-center shadow-md">
-            <Gem className="w-5 text-white" />
+          <div className="w-11 h-11 rounded-lg bg-violet-500/20 flex justify-center items-center border border-violet-500/30">
+            <Gem className="w-5 text-violet-400" />
           </div>
         </div>
       </div>
 
       {/* Loader */}
       {loading ? (
-        <div className="flex justify-center items-center h-3/4">
-          <span className="w-11 h-11 rounded-full border-4 border-[#9E53EE] border-t-transparent animate-spin"></span>
+        <div className="flex justify-center items-center min-h-[320px]">
+          <span className="w-10 h-10 rounded-full border-2 border-violet-500/30 border-t-violet-500 animate-spin" />
         </div>
       ) : (
-        <div className="mt-8 space-y-3">
-          <p className="text-lg font-semibold text-gray-300 mb-2">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-white">
             Recent Creations
-          </p>
+          </h3>
           {creations.length === 0 ? (
-            <div className="w-full flex flex-col justify-center items-center py-20 text-gray-400">
-              <Sparkles className="w-10 h-10 mb-3 text-gray-500" />
-              <p>No creations yet. Start exploring AI tools!</p>
+            <div className="w-full flex flex-col justify-center items-center py-24 text-zinc-500 rounded-xl border border-white/[0.06] bg-white/[0.02]">
+              <Sparkles className="w-12 h-12 mb-4 text-zinc-600" />
+              <p className="text-sm font-medium">No creations yet.</p>
+              <p className="text-xs mt-1">Start exploring AI tools to create something.</p>
             </div>
           ) : (
-            creations.map((item) => <CreationItem key={item.id} item={item} />)
+            <div className="space-y-3">
+              {creations.map((item) => (
+                <CreationItem key={item.id} item={item} />
+              ))}
+            </div>
           )}
         </div>
       )}

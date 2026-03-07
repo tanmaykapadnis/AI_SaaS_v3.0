@@ -11,11 +11,11 @@ const Layout = () => {
   const { user } = useUser();
 
   return user ? (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-[#09090b]">
       {/* Navbar */}
-      <nav className="w-full px-8 h-14 flex items-center justify-between border-b border-gray-700 bg-[#0a0a0a]">
+      <nav className="w-full px-6 lg:px-8 h-14 flex items-center justify-between border-b border-white/[0.06] bg-[#09090b] transition-colors">
         <img
-          className="cursor-pointer w-32 sm:w-44"
+          className="cursor-pointer w-28 sm:w-36 transition-opacity hover:opacity-90"
           src={assets.logo}
           alt="Logo"
           onClick={() => navigate("/")}
@@ -25,28 +25,28 @@ const Layout = () => {
         {sidebar ? (
           <X
             onClick={() => setSidebar(false)}
-            className="w-6 h-6 text-gray-300 sm:hidden cursor-pointer"
+            className="w-5 h-5 text-zinc-400 sm:hidden cursor-pointer hover:text-white transition-colors"
           />
         ) : (
           <Menu
             onClick={() => setSidebar(true)}
-            className="w-6 h-6 text-gray-300 sm:hidden cursor-pointer"
+            className="w-5 h-5 text-zinc-400 sm:hidden cursor-pointer hover:text-white transition-colors"
           />
         )}
       </nav>
 
       {/* Main layout */}
-      <div className="flex flex-1 w-full h-[calc(100vh-56px)]">
+      <div className="flex flex-1 w-full h-[calc(100vh-56px)] overflow-hidden">
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
 
         {/* Main content area */}
-        <div className="flex-1 bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#1a1a1a] text-white overflow-y-auto">
+        <div className="flex-1 bg-[#09090b] text-white overflow-y-auto">
           <Outlet />
         </div>
       </div>
     </div>
   ) : (
-    <div className="flex items-center justify-center h-screen bg-[#0a0a0a]">
+    <div className="flex items-center justify-center min-h-screen bg-[#09090b]">
       <SignIn />
     </div>
   );

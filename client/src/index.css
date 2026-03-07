@@ -1,37 +1,52 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
-
 
 html, body, #root {
   height: 100%;
-  background-color: #0a0a0a;
+  background-color: #09090b;
   color: #e5e5e5;
+}
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+@theme {
+  --color-primary: #7c3aed;
+  --color-accent: #7c3aed;
+}
+
+/* Transitions for interactive elements */
+button, a, [role="button"], .transition-default {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.card-hover:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.15);
 }
 
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d2d2d;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-
-
-
-
-
-* {
-  font-family: "Outfit", sans-serif;
-}
-
-@theme {
-  --color-primary: #5044e5;
+  background: #09090b;
 }
 
 .reset-tw,
@@ -43,11 +58,12 @@ html, body, #root {
   z-index: 10;
 }
 
+/* Violet accent glow (replaces teal/green) */
 .glow-text {
   color: #ffffff;
   text-shadow:
-    0 0 10px rgba(100, 108, 255, 0.4),
-    0 0 20px rgba(100, 108, 255, 0.3),
-    0 0 40px rgba(100, 108, 255, 0.2);
-  letter-spacing: 1px;
+    0 0 10px rgba(124, 58, 237, 0.4),
+    0 0 20px rgba(124, 58, 237, 0.3),
+    0 0 40px rgba(124, 58, 237, 0.2);
+  letter-spacing: 0.5px;
 }
