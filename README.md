@@ -92,27 +92,6 @@ server/
 
 ---
 
-## ⚙️ Environment Variables
-
-Create a `.env` file inside `server/`:
-
-```
-OPENROUTER_API_KEY=your_openrouter_key
-CLERK_SECRET_KEY=your_clerk_secret
-CLOUDINARY_CLOUD_NAME=your_cloud
-CLOUDINARY_API_KEY=your_key
-CLOUDINARY_API_SECRET=your_secret
-PORT=3000
-```
-
-Create a `.env` file inside `client/`:
-
-```
-VITE_BASE_URL=http://localhost:3000
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_key
-```
-
----
 
 ## ▶️ Running Locally
 
